@@ -10,8 +10,8 @@ This grammar does not cover MIDI System Common or System Real Time Messages, and
 3. Apply the MIDI Sysex grammar to the SysEx file.
 
 ## MIDI System Exclusive links
-- <a href="https://www.midi.org/specifications-old/item/table-4-universal-system-exclusive-messages" target="_blank">MIDI 1.0 Universal System Exclusive Messages documentation</a> published by the MIDI Association
-- Somascape's <a href="http://www.somascape.org/midi/tech/spec.html" target="_blank">Guide to the MIDI Software Specification</a>, specifically the section on <a href="http://www.somascape.org/midi/tech/spec.html#sysexmsgs" target="_blank">System Exclusive Messages</a>
-- <a href="http://web.archive.org/web/20070813201804/www.borg.com/~jglatt/" target="_blank">MIDI Technical Fanatic's Brainwashing Center</a>
+- <a href="https://www.midi.org/specifications-old/item/table-4-universal-system-exclusive-messages">MIDI 1.0 Universal System Exclusive Messages documentation</a> published by the MIDI Association
+- Somascape's <a href="http://www.somascape.org/midi/tech/spec.html">Guide to the MIDI Software Specification</a>, specifically the section on <a href="http://www.somascape.org/midi/tech/spec.html#sysexmsgs">System Exclusive Messages</a>
+- <a href="http://web.archive.org/web/20070813201804/www.borg.com/~jglatt/">MIDI Technical Fanatic's Brainwashing Center</a>
 
 
