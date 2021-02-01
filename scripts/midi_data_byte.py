@@ -40,21 +40,21 @@ def fillByteRange(value, byteArray, bitPos, bitLength):
 
 	# verbose info
 	if verbose:
-		debugLog("Input value: " + str(number))
-		debugLog("byteArray length: " + str(byteArray.getLength()))
-		debugLog("bitPos: " + str(bitPos))
-		debugLog("bitLength: " + str(bitLength))
+		print("Input value: " + str(number))
+		print("byteArray length: " + str(byteArray.getLength()))
+		print("bitPos: " + str(bitPos))
+		print("bitLength: " + str(bitLength))
 
 		# number in binary
 		numBinary = '{0:08b}'.format(number)
-		debugLog("Input value binary: " + str(numBinary))
+		print("Input value binary: " + str(numBinary))
 
 		# number in hex
 		numHex = str.format('0x{:02X}', int(str(number), 16))
-		debugLog("Input value hex: " + str(numHex))
+		print("Input value hex: " + str(numHex))
 
 	if (number < 128):
 		byteArray.deleteRange(bitPos/8, bitLength/16)
 		byteArray.writeUnsignedIntBits(number, bitPos, 8, ENDIAN_BIG)
 	else:
-		debugLog("Input value out of range (0-127). Value not updated.")
+		print("Input value out of range (0-127). Value not updated.")

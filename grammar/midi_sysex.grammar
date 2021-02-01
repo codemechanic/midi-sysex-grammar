@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ufwb version="1.17">
-    <grammar name="MIDI Sysex" start="id:42" author="Ben Allen" email="codemechanic@gmail.com" fileextension=".syx">
+    <grammar name="MIDI Sysex" start="id:77" author="Ben Allen" email="codemechanic@gmail.com" fileextension=".syx">
         <description>Grammar for MIDI System Exclusive</description>
         <scripts>
             <script name="MIDI Data Byte" type="DataType" id="702">
@@ -39,45 +39,45 @@ def fillByteRange(value, byteArray, bitPos, bitLength):
 	number = value.getUnsigned()
 
 	# verbose flag
-	verbose = False
+	verbose = True
 
 	# verbose info
 	if verbose:
-		debugLog(&quot;Input value: &quot; + str(number))
-		debugLog(&quot;byteArray length: &quot; + str(byteArray.getLength()))
-		debugLog(&quot;bitPos: &quot; + str(bitPos))
-		debugLog(&quot;bitLength: &quot; + str(bitLength))
+		print(&quot;Input value: &quot; + str(number))
+		print(&quot;byteArray length: &quot; + str(byteArray.getLength()))
+		print(&quot;bitPos: &quot; + str(bitPos))
+		print(&quot;bitLength: &quot; + str(bitLength))
 
 		# number in binary
 		numBinary = '{0:08b}'.format(number)
-		debugLog(&quot;Input value binary: &quot; + str(numBinary))
+		print(&quot;Input value binary: &quot; + str(numBinary))
 
 		# number in hex
 		numHex = str.format('0x{:02X}', int(str(number), 16))
-		debugLog(&quot;Input value hex: &quot; + str(numHex))
+		print(&quot;Input value hex: &quot; + str(numHex))
 
 	if (number &lt; 128):
 		byteArray.deleteRange(bitPos/8, bitLength/16)
 		byteArray.writeUnsignedIntBits(number, bitPos, 8, ENDIAN_BIG)
 	else:
-		debugLog(&quot;Input value out of range (0-127). Value not updated.&quot;)
+		print(&quot;Input value out of range (0-127). Value not updated.&quot;)
                 </source>
             </script>
         </scripts>
-        <structure name="Start of System Exclusive" id="43" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <number name="Byte" mustmatch="yes" id="44" type="integer" length="1" display="hex">
+        <structure name="Start of System Exclusive" id="78" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="Byte" mustmatch="yes" id="79" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="SOX" value="0xF0"/>
                 </fixedvalues>
             </number>
         </structure>
-        <structure name="Multi Byte ID" id="46" length="3" alignment="0" repeatmin="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <number name="First Byte" mustmatch="yes" id="47" length="1" display="hex">
+        <structure name="Multi Byte ID" id="81" length="3" alignment="0" repeatmin="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="First Byte" mustmatch="yes" id="82" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Extended" value="0x0"/>
                 </fixedvalues>
             </number>
-            <number name="Manufacturer" id="48" type="integer" length="2" display="hex">
+            <number name="Manufacturer" id="83" type="integer" length="2" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Digital Music Corporation" value="0x7"/>
                     <fixedvalue name="New England Digital" value="0x9"/>
@@ -140,13 +140,13 @@ def fillByteRange(value, byteArray, bitPos, bitLength):
                 </fixedvalues>
             </number>
         </structure>
-        <structure name="Single Byte ID" id="50" length="1" alignment="0" repeatmin="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <binary name="First bit" mustmatch="yes" id="51" length="1" lengthunit="bit">
+        <structure name="Single Byte ID" id="85" length="1" alignment="0" repeatmin="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <binary name="First bit" mustmatch="yes" id="86" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="Zero" value="00"/>
                 </fixedvalues>
             </binary>
-            <number name="Manufacturer" id="52" type="integer" length="7" lengthunit="bit" display="hex">
+            <number name="Manufacturer" id="87" type="integer" length="7" lengthunit="bit" display="hex">
                 <fixedvalues>
                     <fixedvalue name="Sequential Circuits" value="0x1"/>
                     <fixedvalue name="Moog" value="0x4"/>
@@ -186,8 +186,8 @@ def fillByteRange(value, byteArray, bitPos, bitLength):
                 </fixedvalues>
             </number>
         </structure>
-        <structure name="Identification Code" id="54" length="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <scriptelement name="mapID" id="55">
+        <structure name="Identification Code" id="89" length="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <scriptelement name="mapID" id="90">
                 <script name="unnamed" type="Generic">
                     <source language="Python">
 currentGrammar = currentMapper.getCurrentGrammar()
@@ -208,34 +208,34 @@ else:
                 </script>
             </scriptelement>
         </structure>
-        <structure name="Data Block - Custom" id="57" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <custom name="MIDI Data Byte" id="58" repeatmax="-1" length="1" script="id:702"/>
+        <structure name="Data Block - Custom" id="92" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <custom name="MIDI Data Byte" id="93" repeatmax="-1" length="1" script="id:702"/>
         </structure>
-        <structure name="Data Block - Generic (disabled)" id="60" disabled="yes" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structure name="MIDI Byte" id="61" length="1" repeatmax="-1" encoding="ISO_8859-1:1987" endian="big" signed="no">
-                <binary name="First bit" mustmatch="yes" id="62" length="1" lengthunit="bit">
+        <structure name="Data Block - Generic (disabled)" id="95" disabled="yes" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structure name="MIDI Byte" id="96" length="1" repeatmax="-1" encoding="ISO_8859-1:1987" endian="big" signed="no">
+                <binary name="First bit" mustmatch="yes" id="97" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="Zero" value="00"/>
                     </fixedvalues>
                 </binary>
-                <number name="Data" id="63" type="integer" length="7" lengthunit="bit" display="binary"/>
+                <number name="Data" id="98" type="integer" length="7" lengthunit="bit" display="binary"/>
             </structure>
         </structure>
-        <structure name="End of System Exclusive" id="66" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <number name="Byte" mustmatch="yes" id="67" type="integer" length="1" display="hex">
+        <structure name="End of System Exclusive" id="101" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="Byte" mustmatch="yes" id="102" type="integer" length="1" display="hex">
                 <fixedvalues>
                     <fixedvalue name="EOX" value="0xF7"/>
                 </fixedvalues>
             </number>
         </structure>
-        <structure name="Chunk" id="69" repeatmax="-1" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="Start of System Exclusive" id="70" structure="id:43"/>
-            <structref name="Identification Code" id="71" structure="id:54"/>
-            <structref name="Data Block - Custom" id="72" structure="id:57"/>
-            <structref name="End of System Exclusive" id="73" structure="id:66"/>
+        <structure name="Chunk" id="104" repeatmax="-1" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="Start of System Exclusive" id="105" structure="id:78"/>
+            <structref name="Identification Code" id="106" structure="id:89"/>
+            <structref name="Data Block - Custom" id="107" structure="id:92"/>
+            <structref name="End of System Exclusive" id="108" structure="id:101"/>
         </structure>
-        <structure name="MIDI System Exclusive" id="42" encoding="ISO_8859-1:1987" endian="big" signed="no">
-            <structref name="Chunk" id="75" repeatmax="-1" structure="id:69"/>
+        <structure name="MIDI System Exclusive" id="77" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="Chunk" id="110" repeatmax="-1" structure="id:104"/>
         </structure>
     </grammar>
 </ufwb>
