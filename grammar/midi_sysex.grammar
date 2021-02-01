@@ -39,7 +39,7 @@ def fillByteRange(value, byteArray, bitPos, bitLength):
 	number = value.getUnsigned()
 
 	# verbose flag
-	verbose = True
+	verbose = False
 
 	# verbose info
 	if verbose:
