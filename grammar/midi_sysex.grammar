@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ufwb version="1.17">
+    <grammar name="MIDI Sysex" start="id:42" author="Ben Allen" email="codemechanic@gmail.com" fileextension=".syx">
+        <description>Grammar for MIDI System Exclusive</description>
+        <scripts>
+            <script name="MIDI Data Byte" type="DataType" id="702">
+                <source language="Python">
+# MIDI Data Byte
+#
+# All bytes between the System Exclusive status byte and EOX (or the next status byte) must have zero in the top bit.
+# MIDI Data Bytes range in value from 0 to 127.
+
+
+def parseByteRange(element, byteView, bitPos, bitLength, results):
+	# this method parses data starting at bitPos, bitLength bits are remaining
+	&quot;&quot;&quot;parseByteRange method&quot;&quot;&quot;
+
+	processedBytes = 0
+	firstBit = byteView.readUnsignedIntBits(bitPos, 1, ENDIAN_BIG)
+
+	if (firstBit == 0):
+
+		result = byteView.readUnsignedIntBits(bitPos+1, 7, ENDIAN_BIG)
+
+		# return value to results
+		value = Value()
+		value.setString(str(result))
+		results.addElement(element, 1, 0, value)
+		processedBytes = 1
+	
+	return processedBytes
+
+
+def fillByteRange(value, byteArray, bitPos, bitLength):
+	# this method translates edited values back to the file
+	&quot;&quot;&quot;fillByteRange method&quot;&quot;&quot;
+
+	# get number edited by user
+	number = value.getUnsigned()
+
+	# verbose flag
+	verbose = False
+
+	# verbose info
+	if verbose:
+		debugLog(&quot;Input value: &quot; + str(number))
+		debugLog(&quot;byteArray length: &quot; + str(byteArray.getLength()))
+		debugLog(&quot;bitPos: &quot; + str(bitPos))
+		debugLog(&quot;bitLength: &quot; + str(bitLength))
+
+		# number in binary
+		numBinary = '{0:08b}'.format(number)
+		debugLog(&quot;Input value binary: &quot; + str(numBinary))
+
+		# number in hex
+		numHex = str.format('0x{:02X}', int(str(number), 16))
+		debugLog(&quot;Input value hex: &quot; + str(numHex))
+
+	if (number &lt; 128):
+		byteArray.deleteRange(bitPos/8, bitLength/16)
+		byteArray.writeUnsignedIntBits(number, bitPos, 8, ENDIAN_BIG)
+	else:
+		debugLog(&quot;Input value out of range (0-127). Value not updated.&quot;)
+                </source>
+            </script>
+        </scripts>
+        <structure name="Start of System Exclusive" id="43" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="Byte" mustmatch="yes" id="44" type="integer" length="1" display="hex">
+                <fixedvalues>
+                    <fixedvalue name="SOX" value="0xF0"/>
+                </fixedvalues>
+            </number>
+        </structure>
+        <structure name="Multi Byte ID" id="46" length="3" alignment="0" repeatmin="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="First Byte" mustmatch="yes" id="47" length="1" display="hex">
+                <fixedvalues>
+                    <fixedvalue name="Extended" value="0x0"/>
+                </fixedvalues>
+            </number>
+            <number name="Manufacturer" id="48" type="integer" length="2" display="hex">
+                <fixedvalues>
+                    <fixedvalue name="Digital Music Corporation" value="0x7"/>
+                    <fixedvalue name="New England Digital" value="0x9"/>
+                    <fixedvalue name="Alesis" value="0xE"/>
+                    <fixedvalue name="KAT" value="0x15"/>
+                    <fixedvalue name="Opcode" value="0x16"/>
+                    <fixedvalue name="Allen &amp; Heath Brenell" value="0x1A"/>
+                    <fixedvalue name="Peavey Electronics" value="0x1B"/>
+                    <fixedvalue name="360 Systems" value="0x1C"/>
+                    <fixedvalue name="Zeta Systems" value="0x1F"/>
+                    <fixedvalue name="Axxes" value="0x20"/>
+                    <fixedvalue name="Mark Of The Unicorn (MOTU)" value="0x3B"/>
+                    <fixedvalue name="Studio Electronics" value="0x4D"/>
+                    <fixedvalue name="MIDI Solutions Inc" value="0x50"/>
+                    <fixedvalue name="M-Audio (Midiman)" value="0x105"/>
+                    <fixedvalue name="PreSonus" value="0x106"/>
+                    <fixedvalue name="Radikal Technologies" value="0x136"/>
+                    <fixedvalue name="Roger Linn Design" value="0x137"/>
+                    <fixedvalue name="Plogue Art et Technologie" value="0x15A"/>
+                    <fixedvalue name="Livid" value="0x161"/>
+                    <fixedvalue name="Source Audio LLC" value="0x16C"/>
+                    <fixedvalue name="Kilpatrick Audio" value="0x172"/>
+                    <fixedvalue name="iConnectivity" value="0x173"/>
+                    <fixedvalue name="Intellijel Designs Inc" value="0x214"/>
+                    <fixedvalue name="Sensel Inc" value="0x21D"/>
+                    <fixedvalue name="Electro-Harmonix" value="0x226"/>
+                    <fixedvalue name="Forefront Technology" value="0x2011"/>
+                    <fixedvalue name="Kenton Electronics" value="0x2013"/>
+                    <fixedvalue name="TC Electronic" value="0x201F"/>
+                    <fixedvalue name="Doepfer" value="0x2020"/>
+                    <fixedvalue name="Acorn Computer" value="0x2027"/>
+                    <fixedvalue name="Focusrite / Novation" value="0x2029"/>
+                    <fixedvalue name="Behringer" value="0x2032"/>
+                    <fixedvalue name="Access Music Electronics" value="0x2033"/>
+                    <fixedvalue name="Elektron" value="0x203C"/>
+                    <fixedvalue name="Vermona" value="0x204D"/>
+                    <fixedvalue name="Analogue Systems" value="0x2052"/>
+                    <fixedvalue name="genoQs Machines GmbH" value="0x2064"/>
+                    <fixedvalue name="Elby Designs" value="0x2069"/>
+                    <fixedvalue name="Arturia" value="0x206B"/>
+                    <fixedvalue name="C-Thru Music" value="0x206D"/>
+                    <fixedvalue name="OTO Machines" value="0x2070"/>
+                    <fixedvalue name="Teenage Engineering" value="0x2076"/>
+                    <fixedvalue name="Mutable Instruments" value="0x2102"/>
+                    <fixedvalue name="PreSonus Software Ltd" value="0x2103"/>
+                    <fixedvalue name="Modal Electronics" value="0x2107"/>
+                    <fixedvalue name="Native Instruments" value="0x2109"/>
+                    <fixedvalue name="ROLI Ltd" value="0x2110"/>
+                    <fixedvalue name="Rob Papen" value="0x2117"/>
+                    <fixedvalue name="IK Multimedia" value="0x211A"/>
+                    <fixedvalue name="Modor Music" value="0x211C"/>
+                    <fixedvalue name="Ableton" value="0x211D"/>
+                    <fixedvalue name="Retrokits" value="0x2123"/>
+                    <fixedvalue name="Expressive E" value="0x2126"/>
+                    <fixedvalue name="Expert Sleepers" value="0x2127"/>
+                    <fixedvalue name="Sonic Potions" value="0x212A"/>
+                    <fixedvalue name="Dreadbox P.C." value="0x2135"/>
+                    <fixedvalue name="ALM Co (Busy Circuits)" value="0x2138"/>
+                    <fixedvalue name="Bitwig GmbH" value="0x2149"/>
+                </fixedvalues>
+            </number>
+        </structure>
+        <structure name="Single Byte ID" id="50" length="1" alignment="0" repeatmin="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <binary name="First bit" mustmatch="yes" id="51" length="1" lengthunit="bit">
+                <fixedvalues>
+                    <fixedvalue name="Zero" value="00"/>
+                </fixedvalues>
+            </binary>
+            <number name="Manufacturer" id="52" type="integer" length="7" lengthunit="bit" display="hex">
+                <fixedvalues>
+                    <fixedvalue name="Sequential Circuits" value="0x1"/>
+                    <fixedvalue name="Moog" value="0x4"/>
+                    <fixedvalue name="Passport Designs" value="0x5"/>
+                    <fixedvalue name="Lexicon" value="0x6"/>
+                    <fixedvalue name="Kurzweil" value="0x7"/>
+                    <fixedvalue name="Fender" value="0x8"/>
+                    <fixedvalue name="AKG Acoustics" value="0xA"/>
+                    <fixedvalue name="Ensoniq" value="0xF"/>
+                    <fixedvalue name="Oberheim" value="0x10"/>
+                    <fixedvalue name="Apple" value="0x11"/>
+                    <fixedvalue name="Digidesign" value="0x13"/>
+                    <fixedvalue name="Emu" value="0x18"/>
+                    <fixedvalue name="ART" value="0x1A"/>
+                    <fixedvalue name="Eventide" value="0x1C"/>
+                    <fixedvalue name="Synthaxe" value="0x22"/>
+                    <fixedvalue name="Hohner" value="0x24"/>
+                    <fixedvalue name="PPG" value="0x29"/>
+                    <fixedvalue name="SSL" value="0x2B"/>
+                    <fixedvalue name="Hinton Instruments" value="0x2D"/>
+                    <fixedvalue name="Elka / General Music" value="0x2F"/>
+                    <fixedvalue name="Dynacord" value="0x30"/>
+                    <fixedvalue name="Clavia (Nord)" value="0x33"/>
+                    <fixedvalue name="Cheetah" value="0x36"/>
+                    <fixedvalue name="Waldorf Electronics Gmbh" value="0x3E"/>
+                    <fixedvalue name="Kawai" value="0x40"/>
+                    <fixedvalue name="Roland" value="0x41"/>
+                    <fixedvalue name="Korg" value="0x42"/>
+                    <fixedvalue name="Yamaha" value="0x43"/>
+                    <fixedvalue name="Casio" value="0x44"/>
+                    <fixedvalue name="Akai" value="0x47"/>
+                    <fixedvalue name="JVC" value="0x48"/>
+                    <fixedvalue name="Sony" value="0x4C"/>
+                    <fixedvalue name="Teac Corporation" value="0x4E"/>
+                    <fixedvalue name="Fostex" value="0x51"/>
+                    <fixedvalue name="Zoom" value="0x52"/>
+                </fixedvalues>
+            </number>
+        </structure>
+        <structure name="Identification Code" id="54" length="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <scriptelement name="mapID" id="55">
+                <script name="unnamed" type="Generic">
+                    <source language="Python">
+currentGrammar = currentMapper.getCurrentGrammar()
+multiByteID = currentGrammar.getStructureByName(&quot;Multi Byte ID&quot;)
+singleByteID = currentGrammar.getStructureByName(&quot;Single Byte ID&quot;)
+
+currentPos = currentMapper.getCurrentOffset()
+byteView = currentMapper.getCurrentByteView()
+byte = byteView.readByte(currentPos)
+
+if (byte == 0x00):
+	currentMapper.mapStructure(multiByteID)
+	debugLog(&quot;Multi Byte ID mapped at offset &quot; + str(currentPos))
+else:
+	currentMapper.mapStructure(singleByteID)
+	debugLog(&quot;Single Byte ID mapped at offset &quot; + str(currentPos))
+                    </source>
+                </script>
+            </scriptelement>
+        </structure>
+        <structure name="Data Block - Custom" id="57" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <custom name="MIDI Data Byte" id="58" repeatmax="-1" length="1" script="id:702"/>
+        </structure>
+        <structure name="Data Block - Generic (disabled)" id="60" disabled="yes" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structure name="MIDI Byte" id="61" length="1" repeatmax="-1" encoding="ISO_8859-1:1987" endian="big" signed="no">
+                <binary name="First bit" mustmatch="yes" id="62" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="Zero" value="00"/>
+                    </fixedvalues>
+                </binary>
+                <number name="Data" id="63" type="integer" length="7" lengthunit="bit" display="binary"/>
+            </structure>
+        </structure>
+        <structure name="End of System Exclusive" id="66" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <number name="Byte" mustmatch="yes" id="67" type="integer" length="1" display="hex">
+                <fixedvalues>
+                    <fixedvalue name="EOX" value="0xF7"/>
+                </fixedvalues>
+            </number>
+        </structure>
+        <structure name="Chunk" id="69" repeatmax="-1" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="Start of System Exclusive" id="70" structure="id:43"/>
+            <structref name="Identification Code" id="71" structure="id:54"/>
+            <structref name="Data Block - Custom" id="72" structure="id:57"/>
+            <structref name="End of System Exclusive" id="73" structure="id:66"/>
+        </structure>
+        <structure name="MIDI System Exclusive" id="42" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <structref name="Chunk" id="75" repeatmax="-1" structure="id:69"/>
+        </structure>
+    </grammar>
+</ufwb>
