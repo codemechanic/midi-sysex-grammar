@@ -2,7 +2,7 @@
 
 This grammar file maps the structure of the MIDI System Exclusive File Format. The MIDI Sysex File is a wrapper around manufacturer-specific data. Defining this structure facilitates parsing of the MIDI data it contains.
 
-Grammars are stored as XML and support both Python and Lua scripting languages. They are powerful in that they can export to C structs as well as inherit structures from object oriented languages. Grammars are used in conjunction with the hex and binary file analysis tools [Synalize It!](https://www.synalysis.net) on macOS and [Hexinator](https://hexinator.com) on Windows.
+Grammar files provide an interface for editing and translating human readable values to and from the binary file, and are used in conjunction with the hex and binary file analysis tools [Synalize It!](https://www.synalysis.net) on macOS and [Hexinator](https://hexinator.com) on Windows. Grammars are stored as XML, support both Python and Lua scripting languages, and can export to C structs as well as inherit structures from object oriented languages.
 
 This grammar does not cover MIDI System Common or System Real Time Messages, and focuses on Non Real Time Universal System Exclusive Messages.
 
