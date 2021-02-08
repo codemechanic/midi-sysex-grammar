@@ -9,7 +9,7 @@ This grammar does not cover MIDI System Common or System Real Time Messages, and
 
 ## Usage
 1. Download and open the <a href="https://github.com/codemechanic/midi-sysex-grammar/blob/main/grammar/midi_sysex.grammar?raw=true">midi_sysex.grammar</a> in either Synalize It! or Hexinator.
-2. Open a MIDI Sysex file. If you don't have one available you can download a sample Sysex file (like <a href="https://github.com/codemechanic/midi-sysex-grammar/blob/main/sysex/test.syx?raw=true">test_1.syx</a>) that is provided as a part of this repository.
+2. Open a MIDI Sysex file. If you don't have one available you can download a sample Sysex file (like <a href="https://github.com/codemechanic/midi-sysex-grammar/blob/main/sysex/test.syx?raw=true">test.syx</a>) that is provided as a part of this repository.
 3. Apply the MIDI Sysex grammar to the Sysex file.
 
 ![Synalize It! screenshot](https://github.com/codemechanic/midi-sysex-grammar/blob/main/images/screenshot_1.png?raw=true)
