@@ -17,6 +17,7 @@ This grammar does not cover MIDI System Common or System Real Time Messages, and
 
 ## Manufacturer and synthesizer specific grammars
 * [OSCar MIDI System Exclusive Grammar](https://github.com/codemechanic/oscar-sysex-grammar)
+* [Akai AX73 and VX90 MIDI System Exclusive Grammar](https://github.com/codemechanic/ax73-vx90-sysex-grammar)
 
 
 ## MIDI System Exclusive links
