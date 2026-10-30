@@ -6,9 +6,8 @@ Grammar files provide an interface for editing and translating human readable va
 
 This grammar does not cover MIDI System Common or System Real Time Messages, and focuses on Non Real Time Universal System Exclusive Messages.
 
-
 ## Usage
-1. Download and open the <a href="https://github.com/codemechanic/midi-sysex-grammar/blob/main/grammar/midi_sysex.grammar?raw=true">midi_sysex.grammar</a> in either Synalize It! or Hexinator.
+1. Download and open the [midi_sysex.grammar](grammar/midi_sysex.grammar) in either Synalize It! or Hexinator.
 2. Open a MIDI Sysex file. If you don't have one available you can download a sample Sysex file (like <a href="https://github.com/codemechanic/midi-sysex-grammar/blob/main/sysex/test.syx?raw=true">test.syx</a>) that is provided as a part of this repository.
 3. Apply the MIDI Sysex grammar to the Sysex file.
 
