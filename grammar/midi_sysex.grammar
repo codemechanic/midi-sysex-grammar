@@ -57,7 +57,7 @@ def fillByteRange(value, byteArray, bitPos, bitLength):
 		debugLog(&quot;Input value hex: &quot; + str(numHex))
 
 	if (number &lt; 128):
-		byteArray.deleteRange(bitPos/8, bitLength/16)
+		byteArray.deleteRange(bitPos//8, bitLength//16)
 		byteArray.writeUnsignedIntBits(number, bitPos, 8, ENDIAN_BIG)
 	else:
 		debugLog(&quot;Input value out of range (0-127). Value not updated.&quot;)

@@ -6,7 +6,7 @@ Note that this grammar does not cover MIDI System Common or System Real Time Mes
 
 ## Installation
 
-1. Download and open the [midi_sysex.grammar](https://github.com/codemechanic/midi-sysex-grammar/blob/main/grammar/midi_sysex.grammar) in either Synalize It! or Hexinator.
+1. Download and open the [midi_sysex.grammar](grammar/midi_sysex.grammar) in either Synalize It! or Hexinator.
 
 2. Open a MIDI SysEx file.
 

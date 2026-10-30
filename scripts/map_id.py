@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # The map_id generic script is intended to be run from within the MIDI Sysex Grammar file
 
